@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "coco-message": "^2.0.3",
     "vue": "^3.3.4"
   },
   "devDependencies": {

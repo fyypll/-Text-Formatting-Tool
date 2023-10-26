@@ -39,7 +39,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import cocoMessage from 'coco-message'
 
 const textRef = ref(null)
 
@@ -126,9 +127,9 @@ const copyTextToClipboard = async () => {
     const Textarea = textRef.value.value;
     try {
         await navigator.clipboard.writeText(Textarea);
-        console.log("已成功复制文本到剪切板");
+        cocoMessage.success('已成功复制文本到剪切板')
     } catch (err) {
-        console.error("无法复制文本到剪切板", err);
+        cocoMessage.error('无法复制文本到剪切板')
     }
 }
 
@@ -140,7 +141,7 @@ const clearText = () => {
 // 统计文本长度
 const chklen = () => {
     let strlen = textRef.value.value.length;
-    alert("目前长度 " + strlen + "文字\n");
+    cocoMessage.info(`当前文章长度，${strlen}个文字`)
 }
 
 // 将本地的简繁字典读取保存
@@ -188,15 +189,19 @@ const s2t = (str) => {
 // 简体转繁体
 const jian2fan = () => {
     let textContent = textRef.value.value
-    var result = s2t(textContent)
-    textRef.value.value = result
+    if (textContent.trim() !== '') {
+        var result = s2t(textContent)
+        textRef.value.value = result
+    }
 }
 
 // 繁体转简体
 const fan2jian = () => {
     let textContent = textRef.value.value
-    var result = t2s(textContent)
-    textRef.value.value = result
+    if (textContent.trim() !== '') {
+        var result = t2s(textContent)
+        textRef.value.value = result
+    }
 }
 
 </script>
